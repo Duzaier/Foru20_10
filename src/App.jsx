@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-// ✅ Import trực tiếp ảnh trong src/assets
 import img01 from "./assets/img01.png";
 import img02 from "./assets/img02.png";
 import img03 from "./assets/img03.png";
@@ -46,9 +45,9 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // 💌 Xử lý khi click vào icon
-  const handleIconClick = (id, icon, left, top) => {
-    // Biến mất ngay
+  // 💌 Xử lý khi click icon
+  const handleIconClick = (e, id, icon, left, top) => {
+    e.stopPropagation(); // ⛔ Ngăn ảnh hưởng thiệp
     setFallingIcons((prev) => prev.filter((i) => i.id !== id));
 
     if (icon === "💌") {
@@ -56,7 +55,7 @@ function App() {
       setRandomGreeting(random);
       setShowPopup(true);
     } else {
-      // Hiệu ứng nổ trái tim
+      // 💕 Nổ trái tim
       const newHearts = Array.from({ length: 6 }).map(() => ({
         id: Math.random(),
         left: left + Math.random() * 20 - 10,
@@ -67,6 +66,12 @@ function App() {
         setHearts((prev) => prev.slice(newHearts.length));
       }, 800);
     }
+  };
+
+  // 🎴 Lật thiệp
+  const handleCardFlip = (e) => {
+    e.stopPropagation(); // ⛔ Không mở popup
+    setFlipped((prev) => !prev);
   };
 
   return (
@@ -83,7 +88,7 @@ function App() {
           }}
           onClick={(e) => {
             const rect = e.target.getBoundingClientRect();
-            handleIconClick(item.id, item.icon, rect.left, rect.top);
+            handleIconClick(e, item.id, item.icon, rect.left, rect.top);
           }}
         >
           {item.icon}
@@ -108,7 +113,10 @@ function App() {
       {/* 💌 Popup lời chúc */}
       {showPopup && randomGreeting && (
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
-          <div className="popup-card card shadow-lg p-3 bg-white text-dark">
+          <div
+            className="popup-card card shadow-lg p-3 bg-white text-dark"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="image-wrapper">
               <img
                 src={randomGreeting.image}
@@ -130,15 +138,16 @@ function App() {
       )}
 
       {/* 💌 Thiệp chúc giữa màn hình */}
-      <div className="card-scene" onClick={() => setFlipped(!flipped)}>
+      <div className="card-scene" onClick={handleCardFlip}>
         <div className={`card ${flipped ? "flipped" : ""}`}>
           <div className="card-face card-front">
             <h1 className="fw-bold display-5 greeting-text">💐 Bé ơi 💐</h1>
-            <p className="text-light">Lật mặt sau nếu em yêu anh !@#$^$%#%^%^$</p>
+            <p className="text-light">Lật mặt sau nếu em yêu anh 💞</p>
           </div>
           <div className="card-face card-back">
             <h2 className="fw-bold">Gửi Anh Đào iu dấu</h2>
-            <p>Thử thách nho nhỏ cho em: Tìm 3 điều anh muốn nhắn nhủ đến em trong các lá thư đang rơi...🌸
+            <p>
+              Thử thách nho nhỏ cho em: tìm 3 điều anh muốn nhắn nhủ đến em trong những lá thư đang rơi... 🌸
             </p>
           </div>
         </div>
