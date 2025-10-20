@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/Foru20_10/static/css/main.a8df0b7f.css",
-    "main.js": "/Foru20_10/static/js/main.90123129.js",
+    "main.js": "/Foru20_10/static/js/main.ef474033.js",
     "static/js/453.3deeb845.chunk.js": "/Foru20_10/static/js/453.3deeb845.chunk.js",
     "static/media/img01.png": "/Foru20_10/static/media/img01.4861b0323c1d103dcbfe.png",
     "static/media/img03.png": "/Foru20_10/static/media/img03.fc8760c06846893ce682.png",
     "static/media/img02.png": "/Foru20_10/static/media/img02.3250c5d14da91e8f9e3d.png",
     "index.html": "/Foru20_10/index.html",
     "main.a8df0b7f.css.map": "/Foru20_10/static/css/main.a8df0b7f.css.map",
-    "main.90123129.js.map": "/Foru20_10/static/js/main.90123129.js.map",
+    "main.ef474033.js.map": "/Foru20_10/static/js/main.ef474033.js.map",
     "453.3deeb845.chunk.js.map": "/Foru20_10/static/js/453.3deeb845.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a8df0b7f.css",
-    "static/js/main.90123129.js"
+    "static/js/main.ef474033.js"
   ]
 }
