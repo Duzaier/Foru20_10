@@ -30,7 +30,7 @@ function App() {
   const [randomGreeting, setRandomGreeting] = useState(null);
   const [flipped, setFlipped] = useState(false);
 
-  // 🌸 Tạo icon rơi ngẫu nhiên
+  // 🌸 Icon rơi ngẫu nhiên
   useEffect(() => {
     const interval = setInterval(() => {
       const newIcon = {
@@ -45,33 +45,38 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // 💌 Xử lý khi click icon
+  // 💌 Khi click icon
   const handleIconClick = (e, id, icon, left, top) => {
-    e.stopPropagation(); // ⛔ Ngăn ảnh hưởng thiệp
+    e.stopPropagation();
     setFallingIcons((prev) => prev.filter((i) => i.id !== id));
 
     if (icon === "💌") {
       const random = greetings[Math.floor(Math.random() * greetings.length)];
       setRandomGreeting(random);
       setShowPopup(true);
-    } else {
-      // 💕 Nổ trái tim
-      const newHearts = Array.from({ length: 6 }).map(() => ({
-        id: Math.random(),
-        left: left + Math.random() * 20 - 10,
-        top: top + Math.random() * 20 - 10,
-      }));
-      setHearts((prev) => [...prev, ...newHearts]);
-      setTimeout(() => {
-        setHearts((prev) => prev.slice(newHearts.length));
-      }, 800);
+      return;
     }
+
+    // 💕 Nổ trái tim
+    const newHearts = Array.from({ length: 6 }).map(() => ({
+      id: Math.random(),
+      left: left + Math.random() * 20 - 10,
+      top: top + Math.random() * 20 - 10,
+    }));
+    setHearts((prev) => [...prev, ...newHearts]);
+    setTimeout(() => {
+      setHearts((prev) => prev.slice(newHearts.length));
+    }, 800);
   };
 
-  // 🎴 Lật thiệp
   const handleCardFlip = (e) => {
-    e.stopPropagation(); // ⛔ Không mở popup
+    e.stopPropagation();
     setFlipped((prev) => !prev);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setRandomGreeting(null);
   };
 
   return (
@@ -95,7 +100,7 @@ function App() {
         </span>
       ))}
 
-      {/* 💖 Trái tim nổ */}
+      {/* 💕 Trái tim nổ */}
       {hearts.map((h) => (
         <span
           key={h.id}
@@ -110,11 +115,28 @@ function App() {
         </span>
       ))}
 
+      {/* 💐 Thiệp giữa màn hình */}
+      <div className="card-scene" onClick={handleCardFlip}>
+        <div className={`card ${flipped ? "flipped" : ""}`}>
+          <div className="card-face card-front">
+            <h1 className="fw-bold display-5 greeting-text">💐 Bé ơi 💐</h1>
+            <p className="text-light">Lật mặt sau nếu em yêu anh 💞</p>
+          </div>
+          <div className="card-face card-back">
+            <h2 className="fw-bold">Gửi Anh Đào iu dấu</h2>
+            <p>
+              Thử thách nho nhỏ cho em: tìm 3 điều anh muốn nhắn nhủ đến em
+              trong những lá thư đang rơi... 🌸
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* 💌 Popup lời chúc */}
       {showPopup && randomGreeting && (
-        <div className="popup-overlay" onClick={() => setShowPopup(false)}>
+        <div className="popup-overlay" onClick={closePopup}>
           <div
-            className="popup-card card shadow-lg p-3 bg-white text-dark"
+            className="popup-card card shadow-lg bg-white text-dark"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="image-wrapper">
@@ -126,32 +148,13 @@ function App() {
             </div>
             <div className="card-body text-center">
               <p className="card-text">{randomGreeting.text}</p>
-              <button
-                className="btn btn-pink mt-2"
-                onClick={() => setShowPopup(false)}
-              >
+              <button className="btn btn-pink mt-2" onClick={closePopup}>
                 Đóng 💖
               </button>
             </div>
           </div>
         </div>
       )}
-
-      {/* 💌 Thiệp chúc giữa màn hình */}
-      <div className="card-scene" onClick={handleCardFlip}>
-        <div className={`card ${flipped ? "flipped" : ""}`}>
-          <div className="card-face card-front">
-            <h1 className="fw-bold display-5 greeting-text">💐 Bé ơi 💐</h1>
-            <p className="text-light">Lật mặt sau nếu em yêu anh 💞</p>
-          </div>
-          <div className="card-face card-back">
-            <h2 className="fw-bold">Gửi Anh Đào iu dấu</h2>
-            <p>
-              Thử thách nho nhỏ cho em: tìm 3 điều anh muốn nhắn nhủ đến em trong những lá thư đang rơi... 🌸
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
