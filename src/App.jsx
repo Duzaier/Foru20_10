@@ -134,7 +134,7 @@ function App() {
         <div className={`card ${flipped ? "flipped" : ""}`}>
           <div className="card-face card-front">
             <h1 className="fw-bold display-5 greeting-text">💐 Bé ơi 💐</h1>
-            <p className="text-light">Lật mặt sau nếu em yêu anh</p>
+            <p className="text-light">Lật mặt sau nếu em yêu anh !@#$^$%#%^%^$</p>
           </div>
           <div className="card-face card-back">
             <h2 className="fw-bold">Gửi Anh Đào iu dấu</h2>

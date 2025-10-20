@@ -176,6 +176,7 @@ body {
   color: #ee5ac7; /* 🩷 Đậm rõ, nổi bật hơn */
   text-shadow: 0 0 8px rgba(199, 15, 92, 0.8);
   letter-spacing: 1px;
+  text-align: center;
 }
 
 /* Mặt sau */
