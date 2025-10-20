@@ -1,38 +1,195 @@
-.App {
+body {
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffb6c1, #ff69b4, #ff1493);
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.app-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 🌸 Hiệu ứng icon rơi */
+.falling-icon {
+  position: absolute;
+  top: -5%;
+  cursor: pointer;
+  user-select: none;
+  animation-name: fall;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0.7;
+  }
+}
+
+/* 💕 Hiệu ứng trái tim nổ */
+.small-heart {
+  position: absolute;
+  font-size: 1.2rem;
+  animation: heartExplode 0.8s ease-out forwards;
+}
+
+@keyframes heartExplode {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2) translateY(-40px);
+  }
+}
+
+/* 🎁 Popup hiển thị lời chúc */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-card {
+  width: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  animation: popIn 0.4s ease;
+}
+
+/* 🖼️ Giữ tỷ lệ ảnh 1:1 */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* ✅ giữ tỷ lệ 1:1 */
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.popup-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ✅ hiển thị full 1:1 */
+}
+
+.btn-pink {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  transition: background 0.3s;
+}
+
+.btn-pink:hover {
+  background-color: #ff1493;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 🌸 Khung thiệp chúc mừng ở giữa */
+.greeting-card {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(255, 182, 193, 0.3);
+  border-radius: 20px;
+  padding: 30px 40px;
+  transition: all 0.4s ease;
+  animation: floatCard 3s ease-in-out infinite alternate;
+}
+
+/* Hiệu ứng thiệp khẽ đung đưa */
+@keyframes floatCard {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Toàn khung thiệp nằm giữa màn hình */
+.card-scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+/* Toàn bộ thiệp */
+.card {
+  width: 420px; /* 🟢 to hơn nhiều */
+  height: 280px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease-in-out;
+  border-radius: 18px;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Hai mặt của thiệp */
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border: 2px solid #f5c6ec;
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, #fff8fb, #ffe4f2);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Mặt trước */
+.card-front {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ee5ac7; /* 🩷 Đậm rõ, nổi bật hơn */
+  text-shadow: 0 0 8px rgba(199, 15, 92, 0.8);
+  letter-spacing: 1px;
+}
+
+/* Mặt sau */
+.card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #ffe6f3, #fff1f8);
+  color: #7b3c78;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.greeting-text {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
 }
